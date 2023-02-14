@@ -1,7 +1,9 @@
 class CardController < ApplicationController
+  before_action :set_card, only: [:show, :edit, :update]
+
   def new
     @card = Card.new
-    @list = List.find_by(id: params[:list_id])
+    @list = List.find(params[:list_id])
   end
 
   def create
@@ -13,8 +15,26 @@ class CardController < ApplicationController
     end
   end
 
+  def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @card.update(card_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
+  end
+
   private
     def card_params
       params.require(:card).permit(:title, :memo, :list_id)
     end
+
+  def set_card
+    @card = Card.find(params[:id])
+  end
 end
