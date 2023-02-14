@@ -19,7 +19,7 @@ class CardController < ApplicationController
   end
 
   def edit
-    @lists = List.where(user: current_user)
+    @lists = List.all
   end
 
   def update
